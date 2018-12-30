@@ -2,23 +2,37 @@
   <div class="card-body">
     <div class="card-title"></div>
     
-    <!--<form>-->
+    <form [formGroup]="form" (ngSubmit)="authenticate()">
       <div class="form-group">
         <input 
           type="email" 
           class="form-control" 
           placeholder="E-mail"
+          formControlName="email"
         >
+        <small
+          *ngIf="form.get('email').invalid && form.get('email').touched"
+          class="form-text text-danger"
+        >
+          Informe o e-mail
+        </small>
       </div>
       <div class="form-group">
         <input 
           type="password"
           class="form-control" 
           placeholder="Senha"
+          formControlName="password"
         >
+        <small
+          *ngIf="form.get('password').invalid && form.get('password').touched"
+          class="form-text text-danger"
+        >
+          Informe a senha
+        </small>
       </div>
       <button type="submit" class="btn btn-primary btn-sm btn-block">Entrar</button>
-    <!--</form>-->
+    </form>
     <hr />
 
     <p class="small text-danger text-center">O nome de usuário inserido não pertence a uma conta. Verifique seu nome de usuário e tente novamente.</p>

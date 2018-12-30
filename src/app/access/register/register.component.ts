@@ -46,8 +46,9 @@ export class RegisterComponent implements OnInit {
         this.form.value.username,
         this.form.value.password
       )
-
+      
       this.auth.registerUser(user)
+        .then(() => this.showLoginPanel())
     }
   }
 }
