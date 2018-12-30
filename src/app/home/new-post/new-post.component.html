@@ -1,6 +1,6 @@
 <div class="modal" tabindex="-1" role="dialog" id="new-post">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" *ngIf="postProgress === 'pending'">
       <form [formGroup]="form" (ngSubmit)="publish()">
         <div class="modal-header">
           <h5 class="modal-title">Criar uma publicação</h5>
@@ -9,6 +9,12 @@
           </button>
         </div>
         <div class="modal-body">
+          <input
+            type="file"
+            class="form-control"
+            accept="image/*"
+            (change)="prepareImageUpload($event)"
+          >
           <input
             type="text"
             placeholder="Título da publicação"
@@ -21,5 +27,27 @@
         </div>
       </form>
     </div>
+    <div class="modal-content" *ngIf="postProgress === 'progress'">
+      <div class="modal-header">
+        <h5 class="modal-title">Publicação em andamento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Progresso: {{uploadPercentage}}%
+      </div>
+    </div>
+    <div class="modal-content" *ngIf="postProgress === 'completed'">
+        <div class="modal-header">
+          <h5 class="modal-title">Publicação realizada com sucesso</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Sua publicação foi realizada com sucesso!
+        </div>
+      </div>
   </div>
 </div>

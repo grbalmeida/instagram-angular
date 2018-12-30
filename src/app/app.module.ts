@@ -8,6 +8,7 @@ import {AuthGuard} from './shared/services/auth-guard.service'
 import {ROUTES} from './app.routes'
 import {Auth} from './shared/services/auth.service'
 import {Database} from './shared/services/database.service'
+import {Progress} from './shared/services/progress.service'
 
 import {AppComponent} from './app.component'
 import {AccessComponent} from './access/access.component'
@@ -37,7 +38,8 @@ import { NewPostComponent } from './home/new-post/new-post.component'
   providers: [
     Auth,
     AuthGuard,
-    Database
+    Database,
+    Progress
   ],
   bootstrap: [AppComponent]
 })
