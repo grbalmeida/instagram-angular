@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router'
 import {AuthGuard} from './shared/services/auth-guard.service'
 import {ROUTES} from './app.routes'
 import {Auth} from './shared/services/auth.service'
+import {Database} from './shared/services/database.service'
 
 import {AppComponent} from './app.component'
 import {AccessComponent} from './access/access.component'
@@ -14,7 +15,8 @@ import {BannerComponent} from './access/banner/banner.component'
 import {LoginComponent} from './access/login/login.component'
 import {RegisterComponent} from './access/register/register.component';
 import {HomeComponent} from './home/home.component'
-import {PublicationsComponent} from './home/publications/publications.component'
+import {PublicationsComponent} from './home/publications/publications.component';
+import { NewPostComponent } from './home/new-post/new-post.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +25,8 @@ import {PublicationsComponent} from './home/publications/publications.component'
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    PublicationsComponent
+    PublicationsComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import {PublicationsComponent} from './home/publications/publications.component'
   ],
   providers: [
     Auth,
-    AuthGuard
+    AuthGuard,
+    Database
   ],
   bootstrap: [AppComponent]
 })
