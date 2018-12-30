@@ -1,4 +1,5 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core'
+import {FormGroup, FormControl, Validators} from '@angular/forms'
 
 @Component({
   selector: 'app-register',
@@ -7,6 +8,12 @@ import {Component, OnInit, EventEmitter, Output} from '@angular/core'
 })
 export class RegisterComponent implements OnInit {
   @Output() private showPanel: EventEmitter<string> = new EventEmitter<string>()
+  private form: FormGroup = new FormGroup({
+    'email': new FormControl(null, [Validators.required, Validators.email]),
+    'full_name': new FormControl(null, [Validators.required]),
+    'username': new FormControl(null, [Validators.required]),
+    'password': new FormControl(null, [Validators.required])
+  })
 
   constructor() { }
 
@@ -15,5 +22,14 @@ export class RegisterComponent implements OnInit {
 
   public showLoginPanel(): void {
     this.showPanel.emit('login')
+  }
+
+  public registerUser(): void {
+    if(this.form.invalid) {
+      this.form.get('email').markAsTouched()
+      this.form.get('full_name').markAsTouched()
+      this.form.get('username').markAsTouched()
+      this.form.get('password').markAsTouched()
+    }
   }
 }
