@@ -3,6 +3,8 @@ import {NgModule} from '@angular/core'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {ReactiveFormsModule} from '@angular/forms'
 
+import {Auth} from './shared/services/auth.service'
+
 import {AppComponent} from './app.component'
 import {AccessComponent} from './access/access.component'
 import {BannerComponent} from './access/banner/banner.component'
@@ -21,7 +23,9 @@ import {RegisterComponent} from './access/register/register.component'
     BrowserAnimationsModule,
     ReactiveFormsModule 
   ],
-  providers: [],
+  providers: [
+    Auth
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

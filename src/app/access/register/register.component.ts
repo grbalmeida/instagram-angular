@@ -1,6 +1,7 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core'
 import {FormGroup, FormControl, Validators} from '@angular/forms'
 
+import {Auth} from '../../shared/services/auth.service'
 import User from '../../shared/models/user.model'
 
 @Component({
@@ -11,13 +12,19 @@ import User from '../../shared/models/user.model'
 export class RegisterComponent implements OnInit {
   @Output() private showPanel: EventEmitter<string> = new EventEmitter<string>()
   private form: FormGroup = new FormGroup({
-    'email': new FormControl(null, [Validators.required, Validators.email]),
-    'full_name': new FormControl(null, [Validators.required]),
-    'username': new FormControl(null, [Validators.required]),
-    'password': new FormControl(null, [Validators.required])
+    'email': new FormControl(null, 
+      [Validators.required, Validators.email, Validators.maxLength(100)]),
+    'full_name': new FormControl(null, 
+      [Validators.required, Validators.maxLength(100)]),
+    'username': new FormControl(null, 
+      [Validators.required, Validators.maxLength(50)]),
+    'password': new FormControl(null, 
+      [Validators.required, Validators.minLength(6), Validators.maxLength(50)])
   })
 
-  constructor() { }
+  constructor(
+    private auth: Auth
+  ) {}
 
   ngOnInit() {
   }
@@ -39,6 +46,8 @@ export class RegisterComponent implements OnInit {
         this.form.value.username,
         this.form.value.password
       )
+
+      this.auth.registerUser(user)
     }
   }
 }
