@@ -1,6 +1,8 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core'
 import {FormGroup, FormControl, Validators} from '@angular/forms'
 
+import User from '../../shared/models/user.model'
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -30,6 +32,13 @@ export class RegisterComponent implements OnInit {
       this.form.get('full_name').markAsTouched()
       this.form.get('username').markAsTouched()
       this.form.get('password').markAsTouched()
+    } else {
+      let user: User = new User(
+        this.form.value.email,
+        this.form.value.full_name,
+        this.form.value.username,
+        this.form.value.password
+      )
     }
   }
 }
