@@ -4,6 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {ReactiveFormsModule} from '@angular/forms'
 import {RouterModule} from '@angular/router'
 
+import {AuthGuard} from './shared/services/auth-guard.service'
 import {ROUTES} from './app.routes'
 import {Auth} from './shared/services/auth.service'
 
@@ -31,7 +32,8 @@ import {PublicationsComponent} from './home/publications/publications.component'
     RouterModule.forRoot(ROUTES)
   ],
   providers: [
-    Auth
+    Auth,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
