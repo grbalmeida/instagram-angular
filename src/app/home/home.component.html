@@ -13,6 +13,6 @@
 
 <br /><br /><br />
 <div class="container">
-  <app-publications></app-publications>
-  <app-new-post></app-new-post>
+  <app-publications #publications></app-publications>
+  <app-new-post (updateTimeline)="updateTimeline()"></app-new-post>
 </div>

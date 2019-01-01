@@ -32,4 +32,45 @@ export class Database {
                     })
             })
     }
+
+    public getPublications(userEmail: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            firebase
+                .database()
+                .ref(`posts/${btoa(userEmail)}`)
+                .orderByKey()
+                .once('value')
+                .then((snapshot: any) => {
+                    const publications: Array<any> = []
+
+                    snapshot.forEach((childSnapshot: any) => {
+                        const publication = childSnapshot.val()
+                        publication.key = childSnapshot.key
+                        publications.push(publication)
+                    })
+                    return publications.reverse()
+                })
+                .then((publications: any) => {
+                    publications.forEach((publication: any) => {
+                        firebase
+                            .storage()
+                            .ref()
+                            .child(`images/${publication.key}`)
+                            .getDownloadURL()
+                            .then((url: string) => {
+                                publication.imageUrl = url
+
+                                firebase
+                                    .database()
+                                    .ref(`user_detail/${btoa(userEmail)}`)
+                                    .once('value')
+                                    .then((snapshot: any) => {
+                                        publication.fullName = snapshot.val().fullName
+                                    })
+                            })
+                    })
+                    resolve(publications)
+                })
+        })
+    }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, EventEmitter, Output} from '@angular/core'
 import {FormGroup, FormControl, Validators} from '@angular/forms'
 import * as firebase from 'firebase'
 import {Subject, interval, pipe} from 'rxjs'
@@ -22,6 +22,7 @@ export class NewPostComponent implements OnInit {
   private image: any
   private postProgress: string = 'pending'
   private uploadPercentage: number = 0
+  @Output() private updateTimeline: EventEmitter<any> = new EventEmitter<any>()
 
   constructor(
     private database: Database,
@@ -56,6 +57,7 @@ export class NewPostComponent implements OnInit {
 
           if(this.progress.status === 'completed') {
             this.postProgress = 'completed'
+            this.updateTimeline.emit()
             toBeContinued.next(false)
           }
         })

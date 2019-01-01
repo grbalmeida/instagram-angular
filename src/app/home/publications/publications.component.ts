@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core'
+
+import * as firebase from 'firebase'
+
+import {Database} from '../../shared/services/database.service'
 
 @Component({
   selector: 'app-publications',
@@ -6,10 +10,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./publications.component.css']
 })
 export class PublicationsComponent implements OnInit {
+  private email: string
+  private publications: any
 
-  constructor() { }
+  constructor(
+    private database: Database
+  ) { }
 
   ngOnInit() {
+    firebase
+      .auth()
+      .onAuthStateChanged((user) => {
+        this.email = user.email
+        this.updateTimeline()
+      })
   }
 
+  public updateTimeline(): void {
+    this
+      .database
+      .getPublications(this.email)
+      .then((publications: any) => this.publications = publications)
+  }
 }
